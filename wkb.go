@@ -260,6 +260,12 @@ func ReadWKBRaster(wkb io.Reader) (Raster, error) {
         // Read the pixel type
         pixType := (int(bandheader) & 15) - 1
 
+        // +---------------+--------------+-----------------------------------+
+        // | nodata        | 1 to 8 bytes | Nodata value                      |
+        // |               | depending on |                                   |
+        // |               | pixtype [1]  |                                   |
+        // +---------------+--------------+-----------------------------------+
+
         // Read the nodata value
         noData, err := readIntOfType(wkb, endiannes, pixType)
 
